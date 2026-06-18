@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Happy Birthday Sanu 💜</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#3f0071,#7b2cbf,#c77dff);color:#fff;overflow-x:hidden}
+.page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+.hidden{display:none}
+#cake{font-size:150px;cursor:pointer;animation:swing 2s infinite ease-in-out}
+@keyframes swing{0%{transform:rotate(-15deg)}50%{transform:rotate(15deg)}100%{transform:rotate(-15deg)}}
+
+.flower{position:fixed;top:-50px;pointer-events:none;z-index:1;animation-name:fall,sway;animation-timing-function:linear,ease-in-out;animation-iteration-count:1,infinite}
+@keyframes fall{to{transform:translateY(120vh) rotate(360deg)}}
+@keyframes sway{0%,100%{margin-left:-20px}50%{margin-left:20px}}
+
+.card{background:rgba(255,255,255,.15);padding:20px;border-radius:20px;width:260px;margin:10px;cursor:pointer}
+button{padding:10px 20px;border:none;border-radius:20px;background:#c77dff;color:#fff}
+input,textarea{padding:10px;width:min(90vw,600px);margin:10px;border-radius:10px;border:none}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;width:100%}
+.memoryBox{background:rgba(255,255,255,.12);padding:15px;border-radius:20px}
+.memoryBox img{width:100%;max-height:180px;object-fit:cover;border-radius:12px;margin-top:10px}
+
+.bouquet{font-size:120px}
+#centerText{position:fixed;z-index:5;font-size:40px;text-shadow:0 0 20px #fff}
+</style>
+</head>
+<body>
+
+<div id="home" class="page">
+<h1>Happy Birthday Sanu 💜</h1>
+<p>Click the cake for your surprise</p>
+<div id="cake">🎂</div>
+</div>
+
+<div id="flowers" class="page hidden">
+<div id="centerText">For You Sanu 💜<br><small>Every flower reminds me of your beauty</small></div>
+</div>
+
+<div id="menu" class="page hidden">
+<h2>Made Just For You 💜</h2>
+<div class="card" onclick="show('flowerGift')">🌸 Your Favourite Flower</div>
+<div class="card" onclick="show('memories')">📸 Our Memories Together</div>
+<div class="card" onclick="show('letter')">💌 Love Letter</div>
+</div>
+
+<div id="flowerGift" class="page hidden">
+<button onclick="backMenu()">← Go Back</button>
+
+<h2>Your Favourite Flower 🌸</h2>
+
+<img
+src="IMG_5460.jpeg"
+alt="Purple Flower Bouquet"
+style="
+width:min(90vw,550px);
+border-radius:25px;
+box-shadow:0 0 30px rgba(255,255,255,.4);
+margin:20px 0;
+">
+
+<p style="
+max-width:700px;
+font-size:18px;
+line-height:1.7;
+margin-bottom:25px;
+">
+Every flower reminds me of your beauty, kindness and the happiness you bring into my life. 💜
+</p>
+
+<div style="
+background:rgba(255,255,255,.12);
+padding:20px;
+border-radius:20px;
+">
+
+<p style="margin-bottom:15px;">
+This song reminds me of you 💜
+</p>
+
+<iframe
+width="560"
+height="315"
+src="https://www.youtube.com/embed/rmOIe8XfDXY"
+title="YouTube video player"
+frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+allowfullscreen
+style="
+max-width:100%;
+border-radius:15px;
+">
+</iframe>
+
+</div>
+</div>
+</div>
+
+<div id="memories" class="page hidden">
+<button onclick="backMenu()">← Go Back</button>
+<h2>Our Memories Together 📸</h2>
+
+<div class="grid">
+<div class="memoryBox">Memory 1<br><input type="file" accept="image/*" onchange="preview(this,'m1')"><img id="m1"></div>
+<div class="memoryBox">Memory 2<br><input type="file" accept="image/*" onchange="preview(this,'m2')"><img id="m2"></div>
+
+<div class="memoryBox">Memory 3<br><input type="file" accept="image/*" onchange="preview(this,'m3')"><img id="m3"></div>
+<div class="memoryBox">Memory 4<br><input type="file" accept="image/*" onchange="preview(this,'m4')"><img id="m4"></div>
+
+<div class="memoryBox">Memory 5<br><input type="file" accept="image/*" onchange="preview(this,'m5')"><img id="m5"></div>
+<div class="memoryBox">Memory 6<br><input type="file" accept="image/*" onchange="preview(this,'m6')"><img id="m6"></div>
+</div>
+</div>
+
+<div id="letter" class="page hidden">
+<button onclick="backMenu()">← Go Back</button>
+<h2>Love Letter 💌</h2>
+<div style="font-size:100px">✉️</div>
+<textarea id="letterText" rows="8" placeholder="Write your letter here"></textarea>
+<button onclick="typeLetter()">Open Letter</button>
+<p id="output"></p>
+</div>
+
+<script>
+document.getElementById('cake').onclick=()=>{
+document.getElementById('home').classList.add('hidden');
+document.getElementById('flowers').classList.remove('hidden');
+
+for(let i=0;i<900;i++){
+ let f=document.createElement('div');
+ f.className='flower';
+ f.innerHTML=Math.random()>0.3?'🌸':'💜';
+ f.style.left=Math.random()*100+'vw';
+ f.style.fontSize=(18+Math.random()*40)+'px';
+ f.style.animationDuration=(3+Math.random()*6)+'s,2s';
+ document.body.appendChild(f);
+ setTimeout(()=>f.remove(),10000);
+}
+
+setTimeout(()=>{
+ document.getElementById('flowers').classList.add('hidden');
+ document.getElementById('menu').classList.remove('hidden');
+},6000);
+};
+
+function hideAll(){
+['menu','flowerGift','memories','letter'].forEach(x=>document.getElementById(x).classList.add('hidden'));
+}
+function show(id){hideAll();document.getElementById(id).classList.remove('hidden');}
+function backMenu(){hideAll();document.getElementById('menu').classList.remove('hidden');}
+
+function preview(input,id){
+if(input.files[0]) document.getElementById(id).src=URL.createObjectURL(input.files[0]);
+}
+
+function typeLetter(){
+let text=document.getElementById('letterText').value;
+let out=document.getElementById('output');
+out.innerHTML='';
+let i=0;
+(function t(){
+ if(i<text.length){out.innerHTML+=text.charAt(i++);setTimeout(t,25);}
+ })();
+}
+</script>
+</body>
+</html>
